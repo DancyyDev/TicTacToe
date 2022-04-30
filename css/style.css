@@ -89,12 +89,16 @@ button:hover{
 *****************************************/
   
 .winnerMessage{
-    display: none;
+    /* display: none; */
+    height: 25px;
+    /* width: 50%; */
     font-size: 4em;
 }
   
 #result{
+    text-align: center;
     margin: 10px 0;
+    font-size: 1rem;
     color: rgb(85,149,176);
 }
   
