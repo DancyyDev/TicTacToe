@@ -34,84 +34,34 @@ const box8 = document.querySelector('#eight')
 const box9 = document.querySelector('#nine')
 const boxAll = document.querySelector('.container')
 
-
-// let playerTurn = true
-
-// function playerClick(e){
-//     if (!e.target.classList.contains('mark')){
-//         e.target.innerText = playerTurn == true ? 'X': 'O' 
-//         playerTurn == true ? playerTurn = false : playerTurn = true
-//         e.target.className += ' mark'
-//         winningCombos()
-//     } 
-// }
-// document.querySelector('.container').addEventListener('click', playerClick)
-
-// function winningCombos(){
-//     let verticalOne = ['one','four','seven']
-//     let verticalTwo = [ 'two','five','eight']
-//     let verticalThree = ['three', 'six', 'nine']
-//     let diagOne = ['one','five','nine']
-//     let diagTwo = ['three', 'five', 'seven']
-//     let horOne =['one', 'two', 'three']
-//     let horTwo = ['four', 'five', 'six']
-//     let horThree = ['seven', 'eight', 'nine']
-//     let arr = [verticalOne , verticalTwo , verticalThree , diagOne , diagTwo , horOne , horTwo , horThree ]
-//     //Checking and comparing each text
-//     if( arr.some( id => (boxChecker(id[0]) === "X" || (boxChecker(id[0]) === "O")) && boxChecker(id[0]) === boxChecker(id[1]) && boxChecker(id[1]) === boxChecker(id[2])) ) {
-//         result.innerText = 'Winner!!'
-//       } 
-//     }
-
-//     function clearGame(e) {
-//         let markedBoxes = [ box1, box2, box3, box4, box5, box6, box7, box8, box9 ]
-//         box1.innerText = ''
-//         box2.innerText = ''
-//         box3.innerText = ''
-//         box4.innerText = ''
-//         box5.innerText = ''
-//         box6.innerText = ''
-//         box7.innerText = ''
-//         box8.innerText = ''
-//         box9.innerText = ''
-//         result.innerText = ''
-//         markedBoxes.classList.remove(" mark")
-//       } 
-     
-// function boxChecker(boxId){
-//     return document.querySelector('#'+ boxId).innerText
-// }
-      
-//     document.querySelector('.container').addEventListener('click', playerClick)
-
 //The goal is to create objects
 //objects for game
 
 class Game {
-    constructor( name, player1, player2) {
+    constructor( name, p1, p2) {
         this.name = name,
-        this.player1 = player1,
-        this.player2 = player2,
-        this.player = this.player1
+        this.player1 = p1,
+        this.player2 = p2,
+        this.player = p1
     }
     playerTurn() {
         //
         if( this.player === this.player1) {
             this.player = this.player2
-            console.log(this.player)
         } else if ( this.player === this.player2) {
             this.player = this.player1
-            console.log(this.player)
         }
     }
+    
     placeMarker() {
-        if( this.player === this.player1) {
+        console.log(this.player)
+        if( this.player === this.player1) {  //when this.player is equal to this.player1 then it will return 'X'
             return 'X'
-            this.playerTurn()
-        } else if (this.player === this.player2) {
+        } else if (this.player === this.player2) { //when this.player is equal to this.player2 then it will return 'O'
             return 'O'
         }
     }
+
     checkWhoWon() {
             // Checking and comparing each text
         if (
@@ -163,6 +113,7 @@ class Game {
         ) {
           return result.innerText = "Player one is the Winner!!"
         }
+
         if (
           box1.innerText === "O" &&
           box2.innerText === "O" &&
@@ -214,6 +165,19 @@ class Game {
         }
         
     }
+
+    refresh() {
+        box1.innerText = "";
+        box2.innerText = "";
+        box3.innerText = "";
+        box4.innerText = "";
+        box5.innerText = "";
+        box6.innerText = "";
+        box7.innerText = "";
+        box8.innerText = "";
+        box9.innerText = "";
+        result.innerText = "";
+     }
 }
 
 let tic = new Game('Tic Tac Toe', 'Dan', 'Alexa')
@@ -221,10 +185,16 @@ let tic = new Game('Tic Tac Toe', 'Dan', 'Alexa')
 function firstMove(e) {
     e.preventDefault()
     if (e.target.innerText === ''){
-    e.target.innerText = tic.placeMarker()
-    tic.playerTurn()
+    e.target.innerText = tic.placeMarker() // It will prints the return from the placeMarker() method
+    tic.playerTurn() // changes the turn whenever it is called and also determines what marker is gonna be placed
     tic.checkWhoWon()
     }
 }
 
+function clearGame() {
+    tic.refresh()
+    tic.playerTurn()
+}
+
+button.addEventListener("click", clearGame);
 boxAll.addEventListener('click', firstMove)
